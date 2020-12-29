@@ -1,30 +1,77 @@
+const { response } = require("express");
 const express = require("express");
-const getPosts = require("../controllers/posts");
-const PostMessage = require("../models/postMessage");
 const router = express.Router();
-const updatePost = require("../controllers/posts");
-const deletePost = require("../controllers/posts");
-router.get("/posts", async (req, res) => {
+const postPub = require("../models/postPub");
+const controllers = require("../controllers/post.controllers");
+//test routing
+router.get("/hello", (req, res) => {
+  res.send("hello routing ");
+});
+
+//post pub
+//get all posts
+//get post by id
+//delete post by id
+//update post by id
+
+//@POST method
+//@desc post a pub
+//@path:http://localhost:5000/api/post/
+//Params Body
+router.post("/add", controllers.post);
+
+//@Method Get
+//@desc GET all posts
+//@Path:http://localhost:5000/api/post/
+router.get("/", async (req, res) => {
   try {
-    const postMessages = await PostMessage.find();
-    res.status(200).json(postMessages);
+    const result = await postPub.find();
+    res.send({ response: result, message: "geeting posts successfully " });
   } catch (error) {
-    return res.status(404).json({ msg: error.msg });
+    res.status(400).send({ message: "can not get posts" });
   }
 });
-router.post("/", async (req, res) => {
-  const post = req.body;
-  const newPost = new PostMessage(post);
+//@Method Get
+//@desc GET one post
+//@Path:http://localhost:5000/api/post/:id
+//@params id
+router.get("/:id", async (req, res) => {
   try {
-    await newPost.save();
+    const result = await postPub.findOne({ _id: req.params.id });
+    res.send({ response: result, message: "geeting posts successfully " });
   } catch (error) {
-    res.status(404).json({ message: error.msg });
+    res.status(400).send({ message: "there is no post with this id" });
   }
 });
 
-//update functionality
-router.patch("/:id");
-//delete functionality
-router.delete("/:id");
-
+//@method DELETE
+//@desc delete one post by id
+//@Path:http://localhost:5000/api/post/:id
+//@Params id
+router.delete("/:id", async (req, res) => {
+  try {
+    const result = await postPub.deleteOne({ _id: req.params.id });
+    result.n
+      ? res.send({ response: "post deleted" })
+      : res.send("there is no post with this id ");
+  } catch (error) {
+    res.send("there is no id ");
+  }
+});
+//@method PUT
+//@desc update a post by id
+//@PATH http://localhost:5000/api/post/:id
+//@Params id Body
+router.put("/:id", async (req, res) => {
+  try {
+    const result = await postPub.updateOne(
+      { _id: req.params.id },
+      { $set: { ...req.body } }
+    );
+    console.log(result);
+    res.send("updated ");
+  } catch (error) {
+    res.status(400).send("not updated");
+  }
+});
 module.exports = router;

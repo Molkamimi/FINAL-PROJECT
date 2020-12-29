@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 //provider is going to keep track of store and it allows us to access from anywhere in app ,we can access state from anywhere
 import { Provider } from "react-redux";
 import { store } from "./JS/store/store";
+import "semantic-ui-css/semantic.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <BrowserRouter>

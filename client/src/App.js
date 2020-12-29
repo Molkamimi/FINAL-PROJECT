@@ -18,6 +18,7 @@ function App() {
         <Route exact path="/" component={Signup} />
         <PrivateRoute path="/dashbord" component={Dashbord} />
       </Switch>
+
       {/* <h2>Authentification</h2> */}
     </div>
   );

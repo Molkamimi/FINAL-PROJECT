@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../JS/actions/user";
-import { useHistory } from "react-router-dom";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-import trips from "../Images/trips.jpg";
-import Posts from "../Posts/Posts";
-import Form from "../Form/Form";
-import useStyles from "../Styles/styles";
+import { Route, Switch, useHistory } from "react-router-dom";
+import PostList from "../../Components/PostList";
+import Add from "../../Components/Add";
 import { getPosts } from "../../JS/actions/posts";
+import Post from "../Post";
+import NavBar from "../NavBar/NavBar";
 
 const Dashbord = () => {
-  const [currentId, setCurrentId] = useState(null);
   const dispatch = useDispatch();
   const history = useHistory();
-  const classes = useStyles();
+  const posts = useSelector((state) => state.postReducer.posts);
+  const loadPosts = useSelector((state) => state.postReducer.loadPosts);
+  console.log(posts, loadPosts);
+
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentId, dispatch]);
+  }, []);
+
   return (
     <div>
+      <NavBar />
       <button
         onClick={() => {
           dispatch(logout());
@@ -27,31 +30,25 @@ const Dashbord = () => {
       >
         Logout
       </button>
-      <Container maxWidth="lg">
-        <AppBar className={classes.appBar} position="static" color="inherit">
-          <Typography className={classes.heading} variant="h2" align="center">
-            Trips
-          </Typography>
-          <img className={classes.image} src={trips} alt="trips" height="60" />
-        </AppBar>
-        <Grow in>
-          <Container>
-            <Grid
-              className={classes.mainContainer}
-              container
-              justify="space-between"
-              alignItems="stretch"
-              spacing={3}
-            >
-              <Grid item xs={12} sm={7}></Grid>
-              <Posts setCurrentId={setCurrentId} />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form currentId={currentId} setCurrentId={setCurrentId} />
-            </Grid>
-          </Container>
-        </Grow>
-      </Container>
+      <div>
+        <Switch>
+          <Route
+            exact
+            path="/Dashbord"
+            component={PostList}
+            render={() => <PostList posts={posts} />}
+          />
+
+          <Route path="/Dashbord/add" component={Add} />
+        </Switch>
+      </div>
+      <div>
+        {loadPosts ? (
+          <h2>loading</h2>
+        ) : (
+          posts.map((el) => <Post key={el._id} post={el} />)
+        )}
+      </div>
     </div>
   );
 };
