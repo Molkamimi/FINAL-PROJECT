@@ -16,7 +16,7 @@ router.get("/hello", (req, res) => {
 
 //@POST method
 //@desc post a pub
-//@path:http://localhost:5000/api/post/
+//@path:http://localhost:5000/api/post/add
 //Params Body
 router.post("/add", controllers.post);
 

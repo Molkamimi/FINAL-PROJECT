@@ -4,7 +4,7 @@ import { logout } from "../../JS/actions/user";
 import { Route, Switch, useHistory } from "react-router-dom";
 import PostList from "../../Components/PostList";
 import Add from "../../Components/Add";
-import { getPosts } from "../../JS/actions/posts";
+
 import Post from "../Post";
 import NavBar from "../NavBar/NavBar";
 
@@ -14,10 +14,6 @@ const Dashbord = () => {
   const posts = useSelector((state) => state.postReducer.posts);
   const loadPosts = useSelector((state) => state.postReducer.loadPosts);
   console.log(posts, loadPosts);
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, []);
 
   return (
     <div>
@@ -42,13 +38,7 @@ const Dashbord = () => {
           <Route path="/Dashbord/add" component={Add} />
         </Switch>
       </div>
-      <div>
-        {loadPosts ? (
-          <h2>loading</h2>
-        ) : (
-          posts.map((el) => <Post key={el._id} post={el} />)
-        )}
-      </div>
+      <div> </div>
     </div>
   );
 };

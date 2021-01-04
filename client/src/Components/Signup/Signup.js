@@ -78,7 +78,9 @@ const Signup = () => {
               </div>
               <div className="hr" />
               <div className="foot-lnk">
-                <a href="#forgot">Forgot Password?</a>
+                <a href="#forgot" style={{ color: "pink" }}>
+                  Forgot Password?
+                </a>
               </div>
             </div>
             {/* sign up part */}
@@ -143,7 +145,12 @@ const Signup = () => {
               </div>
               <div className="hr" />
               <div className="foot-lnk">
-                <label htmlFor="tab-1">Already Member?</label>
+                <label
+                  htmlFor="tab-1"
+                  style={{ color: "black", fontStyle: "italic" }}
+                >
+                  Already Member?
+                </label>
               </div>
             </div>
           </div>
