@@ -17,4 +17,4 @@ const postSchema = new schema({
     default: new Date(),
   },
 });
-module.exports = mongoose.model("PostPub", postSchema);
+module.exports = mongoose.model("post", postSchema);

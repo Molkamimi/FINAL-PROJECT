@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import useStyles from "./PostStylesList";
 import Post from "./Post";
 import { getPosts } from "../JS/actions/posts";
+import SingleUser from "../Components/singleUser/singleUser";
+import ListComment from "../Components/ListComment/ListComment";
 const PostList = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer.posts);
@@ -17,8 +19,9 @@ const PostList = () => {
       {loadPosts ? (
         <h2>loading</h2>
       ) : (
-        posts.map((el) => <Post key={el._id} post={el} setSearch={setSearch} />)
+        posts.map((el) => <Post key={el._id} post={el} key={el._id} />)
       )}
+      <ListComment />
     </div>
   );
 };

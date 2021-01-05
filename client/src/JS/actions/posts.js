@@ -26,8 +26,8 @@ export const deletePost = (id) => (dispatch) => {
     .then((res) => dispatch(getPosts()))
     .catch((err) => console.log(err));
 };
-export const getPost = (id) => (dispatch) => {
-  axios
+export const getPost = (id) => async (dispatch) => {
+  await axios
     .get(`/api/post/${id}`)
     .then((res) => dispatch({ type: GET_POST, payload: res.data.response }))
     .catch((err) => console.log(err));
@@ -50,8 +50,8 @@ export const postPub = (post) => async (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const editPost = (id, post) => (dispatch) => {
-  axios
+export const editPost = (id, post) => async (dispatch) => {
+  await axios
     .put(`/api/post/${id}`, post)
     .then((res) => dispatch(getPosts()))
     .catch((err) => console.log(err));

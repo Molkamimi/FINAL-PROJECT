@@ -106,7 +106,6 @@ const Add = () => {
         <Input
           value={post.selectedFile}
           placeholder="selectedFile"
-          name="selectedFile"
           onChange={(e) => {
             setPost({ ...post, selectedFile: e.target.value });
           }}

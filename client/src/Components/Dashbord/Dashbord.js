@@ -4,15 +4,19 @@ import { logout } from "../../JS/actions/user";
 import { Route, Switch, useHistory } from "react-router-dom";
 import PostList from "../../Components/PostList";
 import Add from "../../Components/Add";
+import AddComment from "../AddComment/AddComment";
+import ListComment from "../ListComment/ListComment";
 
 import Post from "../Post";
 import NavBar from "../NavBar/NavBar";
+import SingleUser from "../singleUser/singleUser";
 
 const Dashbord = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const posts = useSelector((state) => state.postReducer.posts);
   const loadPosts = useSelector((state) => state.postReducer.loadPosts);
+
   console.log(posts, loadPosts);
 
   return (
@@ -38,7 +42,10 @@ const Dashbord = () => {
           <Route path="/Dashbord/add" component={Add} />
         </Switch>
       </div>
-      <div> </div>
+      <div>
+        {" "}
+        <AddComment />
+      </div>
     </div>
   );
 };

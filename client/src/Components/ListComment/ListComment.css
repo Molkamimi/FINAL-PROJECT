@@ -1,0 +1,7 @@
+.done {
+  background-color: firebrick;
+  color: darkblue;
+}
+.doneItem {
+  text-decoration: line-through;
+}

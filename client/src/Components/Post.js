@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardActions,
@@ -17,10 +17,14 @@ import { deletePost, getPost, likePost } from "../JS/actions/posts";
 import { Link } from "react-router-dom";
 import { TOGGLE_FALSE, TOGGLE_TRUE } from "../JS/const/edit";
 import { toggleTrue } from "../JS/actions/edit";
-
+import { connect } from "react-redux";
+import { addItem } from "../JS/actions/comment";
+import ListComment from "./ListComment/ListComment";
+import SingleUser from "../Components/singleUser/singleUser";
 const Post = ({ post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [item, setItem] = useState("");
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.media} title={post.title} />
@@ -37,6 +41,20 @@ const Post = ({ post }) => {
           onClick={() => {}}
         >
           <MoreHorizIcon fontSize="default" />
+        </Button>
+        <input
+          value={item}
+          onChange={(e) => setItem(e.target.value)}
+          size="40"
+        />
+        <Button
+          color="primary"
+          onClick={() => {
+            dispatch(addItem({ id: Math.random(), todo: item, done: false }));
+            setItem("");
+          }}
+        >
+          Add
         </Button>
       </div>
       <div className={classes.details}>
@@ -87,6 +105,11 @@ const Post = ({ post }) => {
           >
             <DeleteIcon fontSize="small" />
             EDIT
+          </Button>
+        </Link>
+        <Link to={`/add/${post._id} `}>
+          <Button size="small" color="primary" fontSize="small">
+            description
           </Button>
         </Link>
       </CardActions>
