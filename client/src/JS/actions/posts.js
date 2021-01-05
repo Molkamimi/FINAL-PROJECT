@@ -32,21 +32,27 @@ export const getPost = (id) => (dispatch) => {
     .then((res) => dispatch({ type: GET_POST, payload: res.data.response }))
     .catch((err) => console.log(err));
 };
-export const likePost = (id) => (dispatch) => {
-  axios
+export const likePost = (id) => async (dispatch) => {
+  await axios
     .get(`/api/post/${id}`)
     .then((res) => dispatch({ type: LIKE_POST, payload: res.data.response }))
     .catch((err) => console.log(err));
 };
-export const postPub = (posts) => (dispatch) => {
-  axios
-    .post(`/api/post`, posts)
+export const postPub = (post) => async (dispatch) => {
+  const options = {
+    headers: {
+      authorization: localStorage.getItem("token"),
+    },
+  };
+  await axios
+    .post(`/api/add`, post, options)
     .then((res) => dispatch(getPosts()))
     .catch((err) => console.log(err));
 };
-export const editPost = (id, posts) => (dispatch) => {
+
+export const editPost = (id, post) => (dispatch) => {
   axios
-    .put(`/api/post/${id}`, posts)
+    .put(`/api/post/${id}`, post)
     .then((res) => dispatch(getPosts()))
     .catch((err) => console.log(err));
 };

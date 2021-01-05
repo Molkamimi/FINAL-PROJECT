@@ -9,11 +9,8 @@ import posts from "./PostList";
 //import { toggleFalse, toggleTrue } from "../JS/actions/edit";
 import { postPub, editPost } from "../JS/actions/posts";
 const Add = () => {
-  const dispatch = useDispatch();
-  const postReducer = useSelector((state) => state.postReducer.posts);
-  console.log(postReducer);
-  const edit = useSelector((state) => state.editReducer.edit);
-  const [posts, setPosts] = useState({
+  const postReducer = useSelector((state) => state.postReducer.post);
+  const [post, setPost] = useState({
     title: "",
     message: "",
     creator: "",
@@ -22,10 +19,13 @@ const Add = () => {
     likeCount: "",
     createdAt: "",
   });
+  const edit = useSelector((state) => state.editReducer.edit);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     edit
-      ? setPosts(postReducer)
-      : setPosts({
+      ? setPost(postReducer)
+      : setPost({
           title: "",
           message: "",
           creator: "",
@@ -34,17 +34,17 @@ const Add = () => {
           likeCount: "",
           createdAt: "",
         });
-  }, [postReducer, edit]);
+  }, [edit, postReducer]);
   const handlePost = () => {
     if (!edit) {
-      dispatch(postPub(posts));
+      dispatch(postPub(post));
     } else {
-      dispatch(editPost(postReducer._id, posts));
+      dispatch(editPost(postReducer._id, post));
     }
   };
   const clear = () => {
-    setPosts(0);
-    setPosts({
+    setPost(0);
+    setPost({
       title: "",
       message: "",
       creator: "",
@@ -54,73 +54,84 @@ const Add = () => {
       createdAt: "",
     });
   };
-  const handleChange = (e) => {
-    e.preventDefault();
-    setPosts({ ...posts, [e.target.name]: e.target.value });
-  };
+
   return (
     <Form>
       <Form.Field>
         <label>title</label>
         <Input
-          value={posts.title}
+          value={post.title}
           placeholder="Name"
           name="title"
-          onChange={handleChange}
+          onChange={(e) => {
+            setPost({ ...post, title: e.target.value });
+          }}
         />
       </Form.Field>
       <Form.Field>
         <label>message</label>
         <Input
-          value={posts.message}
+          value={post.message}
           placeholder="Message"
           name="message"
-          onChange={handleChange}
+          onChange={(e) => {
+            setPost({ ...post, message: e.target.value });
+          }}
         />
       </Form.Field>
       <Form.Field>
         <label>creator</label>
         <Input
-          value={posts.creator}
+          value={post.creator}
           placeholder="Creator"
           name="creator"
-          onChange={handleChange}
+          onChange={(e) => {
+            setPost({ ...post, creator: e.target.value });
+          }}
         />
       </Form.Field>
       <Form.Field>
         <label>tags</label>
         <Input
-          value={posts.tags}
+          value={post.tags}
           placeholder="tags"
           name="tags"
-          onChange={handleChange}
+          onChange={(e) => {
+            setPost({ ...post, tags: e.target.value });
+          }}
         />
       </Form.Field>
       <Form.Field>
         <label>selectedFile</label>
         <Input
-          value={posts.selectedFile}
+          value={post.selectedFile}
           placeholder="selectedFile"
           name="selectedFile"
-          onChange={handleChange}
+          onChange={(e) => {
+            setPost({ ...post, selectedFile: e.target.value });
+          }}
         />
       </Form.Field>
       <Form.Field>
         <label>likeCount</label>
         <Input
-          value={posts.likeCount}
+          value={post.likeCount}
           placeholder="likeCount"
           name="likeCount"
-          onChange={handleChange}
+          onChange={(e) => {
+            setPost({ ...post, likeCount: e.target.value });
+          }}
         />
       </Form.Field>
       <Form.Field>
         <label>createdAt</label>
         <Input
-          value={posts.createdAt}
+          value={post.createdAt}
           placeholder="createdAt"
           name="createdAt"
-          onChange={handleChange}
+          onChange={(e) => {
+            setPost({ ...post, createdAt: e.target.value });
+          }}
         />
       </Form.Field>
       <Link to="/Dashbord">

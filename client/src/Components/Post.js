@@ -18,16 +18,16 @@ import { Link } from "react-router-dom";
 import { TOGGLE_FALSE, TOGGLE_TRUE } from "../JS/const/edit";
 import { toggleTrue } from "../JS/actions/edit";
 
-const Post = ({ posts }) => {
+const Post = ({ post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   return (
     <Card className={classes.card}>
-      <CardMedia className={classes.media} title={posts.title} />
+      <CardMedia className={classes.media} title={post.title} />
       <div className={classes.overlay}>
-        <Typography variant="h6">{posts.creator}</Typography>
+        <Typography variant="h6">{post.creator}</Typography>
         <Typography variant="body2">
-          {moment(posts.createdAt).fromNow()}
+          {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
       <div className={classes.overlay2}>
@@ -41,7 +41,7 @@ const Post = ({ posts }) => {
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">
-          {posts.tags.map((tag) => `#${tag} `)}
+          {post.tags.map((tag) => `#${tag} `)}
         </Typography>
       </div>
       <Typography
@@ -50,11 +50,11 @@ const Post = ({ posts }) => {
         variant="h6"
         component="h2"
       >
-        {posts.title}
+        {post.title}
       </Typography>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {posts.message}
+          {post.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
@@ -62,26 +62,26 @@ const Post = ({ posts }) => {
           size="small"
           color="primary"
           onClick={() => {
-            dispatch(likePost(posts._id));
+            dispatch(likePost(post._id));
           }}
         >
-          <ThumbAltIcon fontSize="small" /> Like {posts.likeCount}
+          <ThumbAltIcon fontSize="small" /> Like {post.likeCount}
         </Button>
         <Button
           size="small"
           color="primary"
           onClick={() => {
-            dispatch(deletePost(posts._id));
+            dispatch(deletePost(post._id));
           }}
         >
           <DeleteIcon fontSize="small" /> Delete
         </Button>
-        <Link to={`/Dashbord/add/${posts._id}`}>
+        <Link to={`/Dashbord/add/${post._id}`}>
           <Button
             size="small"
             color="primary"
             onClick={() => {
-              dispatch(getPost(posts._id));
+              dispatch(getPost(post._id));
               dispatch(toggleTrue());
             }}
           >

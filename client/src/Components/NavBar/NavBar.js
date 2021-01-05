@@ -10,7 +10,7 @@ import {
   NavbarText,
 } from "reactstrap";
 
-const NavBar = ({}) => {
+const NavBar = ({ setSearch }) => {
   return (
     <div>
       <Navbar
@@ -60,7 +60,9 @@ const NavBar = ({}) => {
                     type="text"
                     placeholder="Search"
                     className="mr-sm-2"
-                    onChange={() => {}}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                    }}
                   />
                 </Form>
               </div>
