@@ -34,8 +34,9 @@ export const getPost = (id) => async (dispatch) => {
 };
 export const likePost = (id) => async (dispatch) => {
   await axios
-    .get(`/api/post/${id}`)
+    .post(`/api/post/${id}`)
     .then((res) => dispatch({ type: LIKE_POST, payload: res.data.response }))
+    .then((res) => dispatch(getPosts()))
     .catch((err) => console.log(err));
 };
 export const postPub = (post) => async (dispatch) => {
@@ -45,7 +46,7 @@ export const postPub = (post) => async (dispatch) => {
     },
   };
   await axios
-    .post(`/api/add`, post, options)
+    .post(`/api/post/add`, post, options)
     .then((res) => dispatch(getPosts()))
     .catch((err) => console.log(err));
 };

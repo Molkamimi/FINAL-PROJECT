@@ -28,7 +28,7 @@ const Edit = (props) => {
               toggle();
             }}
           >
-            Edit Element
+            Edit Comment
           </Button>{" "}
           <Button color="primary" onClick={toggle}>
             Cancel

@@ -6,7 +6,7 @@ import { Button, ButtonToggle } from "reactstrap";
 import EditComment from "../editComment/editComment";
 function ListComment() {
   const Items = useSelector((state) => state.todo.todo);
-  console.log(Items);
+  console.log("list items", Items);
   const [all, setAll] = useState(true);
   const dispatch = useDispatch();
 

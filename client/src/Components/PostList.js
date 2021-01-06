@@ -21,6 +21,7 @@ const PostList = () => {
       ) : (
         posts.map((el) => <Post key={el._id} post={el} key={el._id} />)
       )}
+
       <ListComment />
     </div>
   );

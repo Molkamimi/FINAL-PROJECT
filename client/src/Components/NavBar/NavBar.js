@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FormControl, Form, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../../JS/actions/searchActions";
 import {
   Collapse,
   Navbar,
@@ -10,7 +12,8 @@ import {
   NavbarText,
 } from "reactstrap";
 
-const NavBar = ({ setSearch }) => {
+const NavBar = () => {
+  const dispatch = useDispatch();
   return (
     <div>
       <Navbar
@@ -61,7 +64,7 @@ const NavBar = ({ setSearch }) => {
                     placeholder="Search"
                     className="mr-sm-2"
                     onChange={(e) => {
-                      setSearch(e.target.value);
+                      dispatch(setSearch(e.target.value));
                     }}
                   />
                 </Form>

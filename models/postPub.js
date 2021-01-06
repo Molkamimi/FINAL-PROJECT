@@ -9,11 +9,11 @@ const postSchema = new schema({
   tags: [String],
   selectedFile: String,
   likeCount: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: "0",
   },
   createdAt: {
-    type: Date,
+    type: String,
     default: new Date(),
   },
 });

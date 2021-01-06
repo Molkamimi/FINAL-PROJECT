@@ -44,6 +44,20 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//like count
+router.post("/:id", async (req, res) => {
+  // const likeCount = Object.values(req.body);
+
+  try {
+    const result = await postPub.findOne({ _id: req.params.id });
+    // console.log(result);
+    result.likeCount += 1;
+    await result.save();
+    res.send({ response: result, message: "like added successfully " });
+  } catch (error) {
+    res.status(400).send({ message: "no like to add" });
+  }
+});
 //@method DELETE
 //@desc delete one post by id
 //@Path:http://localhost:5000/api/post/:id

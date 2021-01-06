@@ -74,6 +74,7 @@ const Post = ({ post }) => {
         <Typography variant="body2" color="textSecondary" component="p">
           {post.message}
         </Typography>
+        <div className="comment-section">{/* <ListComment /> */}</div>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button
@@ -108,8 +109,16 @@ const Post = ({ post }) => {
           </Button>
         </Link>
         <Link to={`/add/${post._id} `}>
-          <Button size="small" color="primary" fontSize="small">
-            description
+          <Button
+            size="small"
+            color="primary"
+            fontSize="small"
+            onClick={() => {
+              dispatch(getPost(post._id));
+              dispatch(toggleTrue());
+            }}
+          >
+            Profile
           </Button>
         </Link>
       </CardActions>

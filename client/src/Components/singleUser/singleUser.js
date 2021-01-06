@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { editPost, getPost } from "../../JS/actions/posts";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
-  CardImg,
+  CardText,
   CardBody,
+  CardLink,
   CardTitle,
   CardSubtitle,
-  Button,
+  CardImg,
+  Spinner,
 } from "reactstrap";
+import { postPub, editPost } from "../../JS/actions/posts";
 
 const SingleUser = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const postt = useSelector((state) => state.postReducer.post);
-  const edit = useSelector((state) => state.editReducer.edit);
+  const postReducer = useSelector((state) => state.postReducer.post);
   const [post, setPost] = useState({
     title: "",
     message: "",
@@ -26,44 +23,104 @@ const SingleUser = () => {
     likeCount: "",
     createdAt: "",
   });
+  const edit = useSelector((state) => state.editReducer.edit);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     edit
-      ? setPost(post)
+      ? setPost(postReducer)
       : setPost({
           title: "",
           message: "",
           creator: "",
           tags: "",
           selectedFile: "",
+          likeCount: "",
           createdAt: "",
         });
-    if (postt) {
-      dispatch(getPost(post._id));
-    }
-  }, [edit, post]);
+  }, [edit, postReducer]);
   const handlePost = () => {
     if (!edit) {
-      dispatch(getPost(post._id));
+      dispatch(postPub(post));
     } else {
-      dispatch(editPost(post._id, post));
+      dispatch(editPost(postReducer._id, post));
     }
   };
-
   return (
     <div>
       <Card>
+        <CardImg
+          top
+          width="20px"
+          title={post.title}
+          onChange={(e) => {
+            setPost({ ...post, title: e.target.value });
+          }}
+        />
         <CardBody>
-          <CardTitle tag="h5">{post.title}</CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">
-            {post.message}
-          </CardSubtitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">
+          <CardTitle
+            tag="h6"
+            onChange={(e) => {
+              setPost({ ...post, creator: e.target.value });
+            }}
+          >
             {" "}
-            {post.tags}
-          </CardSubtitle>
+            creator: {post.creator}
+          </CardTitle>
+
+          <CardText>
+            <small
+              className="text-muted"
+              onChange={(e) => {
+                setPost({ ...post, message: e.target.value });
+              }}
+            >
+              message:{post.message}
+            </small>
+          </CardText>
+          <CardText>
+            <small
+              className="text-muted"
+              onChange={(e) => {
+                setPost({ ...post, tags: e.target.value });
+              }}
+            >
+              tags:{post.tags}
+            </small>
+          </CardText>
+          <CardText>
+            <CardText>
+              <small
+                className="text-muted"
+                onChange={(e) => {
+                  setPost({ ...post, likeCount: e.target.value });
+                }}
+              >
+                likeCount:{post.likeCount}
+              </small>
+            </CardText>
+            <small
+              className="text-muted"
+              onChange={(e) => {
+                setPost({ ...post, createdAt: e.target.value });
+              }}
+            >
+              createdAt:{post.createdAt}
+            </small>
+          </CardText>
+          <CardText>
+            <small
+              className="text-muted"
+              onChange={(e) => {
+                setPost({ ...post, selectedFile: e.target.value });
+              }}
+            >
+              selectedFile:{post.selectedFile}
+            </small>
+          </CardText>
         </CardBody>
       </Card>
+      )
     </div>
   );
 };

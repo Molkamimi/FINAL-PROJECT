@@ -17,11 +17,9 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={Signup} />
-        <Route path="/add" component={SingleUser} />
+        <Route path="/add/:id" component={SingleUser} />
         <PrivateRoute path="/dashbord" component={Dashbord} />
       </Switch>
-
-      {/* <h2>Authentification</h2> */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Form, Input } from "semantic-ui-react";
 import { Button } from "@material-ui/core";
 import posts from "./PostList";
-//import { toggleFalse, toggleTrue } from "../JS/actions/edit";
+import { toggleFalse, toggleTrue } from "../JS/actions/edit";
 import { postPub, editPost } from "../JS/actions/posts";
 const Add = () => {
   const postReducer = useSelector((state) => state.postReducer.post);
@@ -105,7 +105,11 @@ const Add = () => {
         <label>selectedFile</label>
         <Input
           value={post.selectedFile}
-          placeholder="selectedFile"
+          // type="file"
+          // FileBase
+          // type="file"
+          // multiple={false}
+          // onDone={{ base64 }}
           onChange={(e) => {
             setPost({ ...post, selectedFile: e.target.value });
           }}
@@ -140,7 +144,10 @@ const Add = () => {
           size="large"
           type="submit"
           fullWidth
-          onClick={handlePost}
+          onClick={() => {
+            dispatch(toggleFalse());
+            handlePost();
+          }}
         >
           {edit ? "Edit" : "Save"}{" "}
         </Button>
