@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import SingleUser from "./Components/singleUser/singleUser";
 
 import "./App.css";
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {

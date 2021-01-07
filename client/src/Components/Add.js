@@ -42,6 +42,7 @@ const Add = () => {
       dispatch(editPost(postReducer._id, post));
     }
   };
+
   const clear = () => {
     setPost(0);
     setPost({
@@ -56,7 +57,7 @@ const Add = () => {
   };
 
   return (
-    <Form>
+    <Form style={{ marginLeft: "30%", marginRight: "30%" }}>
       <Form.Field>
         <label>title</label>
         <Input
@@ -103,17 +104,12 @@ const Add = () => {
       </Form.Field>
       <Form.Field>
         <label>selectedFile</label>
-        <Input
-          value={post.selectedFile}
-          // type="file"
-          // FileBase
-          // type="file"
-          // multiple={false}
-          // onDone={{ base64 }}
-          onChange={(e) => {
-            setPost({ ...post, selectedFile: e.target.value });
-          }}
+        <FileBase
+          type="file"
+          multiple={false}
+          onDone={({ e, base64 }) => setPost({ ...post, selectedFile: base64 })}
         />
+        {post && post.selectedFile && <img src={post.selectedFile} />}
       </Form.Field>
       <Form.Field>
         <label>likeCount</label>

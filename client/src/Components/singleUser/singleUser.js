@@ -1,3 +1,4 @@
+import { urlencoded } from "body-parser";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -47,81 +48,84 @@ const SingleUser = () => {
     }
   };
   return (
-    <div>
-      <Card>
-        <CardImg
-          top
-          width="20px"
-          title={post.title}
+    <Card
+      style={{
+        backgroundColor: "#9dd4dc",
+        fontStyle: "italic",
+        fontSize: "large",
+      }}
+    >
+      <CardImg
+        top
+        width="20px"
+        title={post.title}
+        onChange={(e) => {
+          setPost({ ...post, title: e.target.value });
+        }}
+      />
+      <CardBody>
+        <CardTitle
+          tag="h6"
           onChange={(e) => {
-            setPost({ ...post, title: e.target.value });
+            setPost({ ...post, creator: e.target.value });
           }}
-        />
-        <CardBody>
-          <CardTitle
-            tag="h6"
+        >
+          {" "}
+          creator: {post.creator}
+        </CardTitle>
+
+        <CardText>
+          <small
+            className="text-muted"
             onChange={(e) => {
-              setPost({ ...post, creator: e.target.value });
+              setPost({ ...post, message: e.target.value });
             }}
           >
-            {" "}
-            creator: {post.creator}
-          </CardTitle>
-
+            message:{post.message}
+          </small>
+        </CardText>
+        <CardText>
+          <small
+            className="text-muted"
+            onChange={(e) => {
+              setPost({ ...post, tags: e.target.value });
+            }}
+          >
+            tags:{post.tags}
+          </small>
+        </CardText>
+        <CardText>
           <CardText>
             <small
               className="text-muted"
               onChange={(e) => {
-                setPost({ ...post, message: e.target.value });
+                setPost({ ...post, likeCount: e.target.value });
               }}
             >
-              message:{post.message}
+              likeCount:{post.likeCount}
             </small>
           </CardText>
-          <CardText>
-            <small
-              className="text-muted"
-              onChange={(e) => {
-                setPost({ ...post, tags: e.target.value });
-              }}
-            >
-              tags:{post.tags}
-            </small>
-          </CardText>
-          <CardText>
-            <CardText>
-              <small
-                className="text-muted"
-                onChange={(e) => {
-                  setPost({ ...post, likeCount: e.target.value });
-                }}
-              >
-                likeCount:{post.likeCount}
-              </small>
-            </CardText>
-            <small
-              className="text-muted"
-              onChange={(e) => {
-                setPost({ ...post, createdAt: e.target.value });
-              }}
-            >
-              createdAt:{post.createdAt}
-            </small>
-          </CardText>
-          <CardText>
-            <small
-              className="text-muted"
-              onChange={(e) => {
-                setPost({ ...post, selectedFile: e.target.value });
-              }}
-            >
-              selectedFile:{post.selectedFile}
-            </small>
-          </CardText>
-        </CardBody>
-      </Card>
-      )
-    </div>
+          <small
+            className="text-muted"
+            onChange={(e) => {
+              setPost({ ...post, createdAt: e.target.value });
+            }}
+          >
+            createdAt:{post.createdAt}
+          </small>
+        </CardText>
+        <CardText>
+          <small
+            className="text-muted"
+            onChange={(e) => {
+              setPost({ ...post, selectedFile: e.target.value });
+            }}
+          >
+            selectedFile:{post.selectedFile}
+          </small>
+        </CardText>
+      </CardBody>
+    </Card>
   );
 };
 

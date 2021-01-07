@@ -104,7 +104,6 @@ const Post = ({ post }) => {
               dispatch(toggleTrue());
             }}
           >
-            <DeleteIcon fontSize="small" />
             EDIT
           </Button>
         </Link>
